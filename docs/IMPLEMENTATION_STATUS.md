@@ -7,10 +7,14 @@ _Last updated: 2026-07-17 (release gate v0.1.0)_
 - Visual gate: **PASS** (see `docs/VISUAL_REDESIGN.md`)
 - Release date: 2026-07-17, tag `v0.1.0-body-check-in`, branch `main`
 - Remote: https://github.com/gorgerich/soma
-- Commit SHA: _recorded in the deployment-evidence commit after release_
+- Release commit: `00330fe` (tag target). Follow-up commits: `47765be`
+  (CI runtime fix), plus this deployment-evidence commit — the tag stays on
+  the original release commit by design.
 - Web showcase (static, not the native app):
   https://soma-showcase.vercel.app
-- CI: `.github/workflows/ios-ci.yml` — status recorded post-push
+- CI: **success** —
+  https://github.com/gorgerich/soma/actions/runs/29595264795
+  (build + 7/7 tests on iPhone 16 Pro simulator, macOS 15 runner)
 
 ## Completed work
 

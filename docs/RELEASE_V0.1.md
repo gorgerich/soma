@@ -3,7 +3,11 @@
 Release date: 2026-07-17
 Tag: `v0.1.0-body-check-in`
 Branch: `main`
-Commit: recorded in `docs/IMPLEMENTATION_STATUS.md` after the release commit.
+Release commit (tag target): `00330fe`.
+Follow-up commits after the tag: `47765be` (CI simulator-runtime fix) and the
+deployment-evidence docs commit. The annotated tag deliberately remains on
+the original release commit.
+CI: https://github.com/gorgerich/soma/actions/runs/29595264795 — success.
 
 ## What this release contains
 
