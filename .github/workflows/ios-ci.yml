@@ -14,9 +14,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Select Xcode 16.2
-        run: sudo xcode-select -s /Applications/Xcode_16.2.app
-
+      # The runner's default Xcode ships with a matching iOS simulator
+      # runtime; pinning an older Xcode leaves it without a usable runtime.
       - name: Show versions
         run: |
           xcodebuild -version
