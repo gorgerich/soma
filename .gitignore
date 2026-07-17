@@ -1,0 +1,36 @@
+# macOS
+.DS_Store
+
+# Xcode user state
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+
+# Build output
+DerivedData/
+build/
+*.ipa
+*.dSYM.zip
+*.dSYM
+*.xcarchive
+
+# Swift Package Manager
+.swiftpm/
+.build/
+
+# Environment / secrets
+.env
+.env.*
+*.p12
+*.mobileprovision
+*.certSigningRequest
+
+# Vercel local state
+.vercel/
+
+# Logs & temp
+*.log
+tmp/
+
+# Third-party design reference images (not licensed for redistribution)
+docs/design-references/

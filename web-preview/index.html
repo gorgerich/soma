@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Soma — Body Check-In prototype</title>
+  <meta name="description" content="Soma is a calm personal health companion prototype. Tap where it hurts and build a clear picture of what you feel — shown here as a web showcase of the native iOS app." />
+  <meta property="og:title" content="Soma — Body Check-In prototype" />
+  <meta property="og:description" content="A clearer way to describe what you feel. Web showcase of the native iOS prototype." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/02-back-selected.jpg" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="ambient" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <span class="wordmark">Soma</span>
+    <a class="header-link" href="https://github.com/gorgerich/soma" rel="noopener">GitHub</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Native iOS prototype · Web showcase</p>
+        <h1>A clearer way to describe what you feel.</h1>
+        <p class="lede">
+          Soma helps you structure a physical symptom before speaking to a
+          healthcare professional. Tap where it hurts on a calm, neutral body —
+          and build a picture you can actually share.
+        </p>
+        <p class="note">
+          What you see below are real screenshots of the native SwiftUI app
+          running in the iPhone simulator. The app itself runs on iOS — this
+          page is only a showcase.
+        </p>
+
+        <div class="switcher" role="radiogroup" aria-label="Prototype state">
+          <button type="button" role="radio" aria-checked="true" data-state="idle">Back · Idle</button>
+          <button type="button" role="radio" aria-checked="false" data-state="selected">Back · Selected</button>
+          <button type="button" role="radio" aria-checked="false" data-state="front">Front</button>
+          <button type="button" role="radio" aria-checked="false" data-state="large-type">Large Type</button>
+          <button type="button" role="radio" aria-checked="false" data-state="small-screen">Small Screen</button>
+        </div>
+      </div>
+
+      <div class="phone-stage">
+        <figure class="phone" id="phone">
+          <img id="shot-idle" class="shot is-active" src="assets/01-back-idle.jpg"
+               alt="Soma Body Check-In screen, back view, no area selected. Headline reads: Where does it hurt?" />
+          <img id="shot-selected" class="shot" src="assets/02-back-selected.jpg"
+               alt="Soma Body Check-In screen with the lower back selected and a soft coral-lavender glow. Panel reads: Selected area, Lower back." />
+          <img id="shot-front" class="shot" src="assets/03-front.jpg"
+               alt="Soma Body Check-In screen showing the front of the body with no selectable region." />
+          <img id="shot-large-type" class="shot" src="assets/04-selected-large-type.jpg"
+               alt="Soma Body Check-In screen with the lower back selected and large accessibility Dynamic Type text." />
+          <img id="shot-small-screen" class="shot" src="assets/05-iphone-se-idle.jpg"
+               alt="Soma Body Check-In screen on the smaller iPhone SE, showing the same layout scaled down." />
+          <figcaption id="phone-caption" class="visually-hidden">Back view, no area selected</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="principles" aria-labelledby="principles-title">
+      <h2 id="principles-title">Product principles</h2>
+      <ul>
+        <li><strong>Calm.</strong> A quiet, atmospheric scene instead of a clinical form.</li>
+        <li><strong>Private.</strong> The prototype keeps every check-in on the device — no accounts, no network.</li>
+        <li><strong>Precise.</strong> One shared coordinate system keeps the body and its regions aligned on every screen size.</li>
+        <li><strong>Honest.</strong> Soma structures what you feel. It never guesses what it means.</li>
+      </ul>
+    </section>
+
+    <section class="details" aria-labelledby="details-title">
+      <h2 id="details-title">What the prototype includes</h2>
+      <div class="details-grid">
+        <article>
+          <h3>Current scope</h3>
+          <p>
+            The first step of the flow: choosing where it hurts. Back view by
+            default, front/back switching, a selectable lower-back region with
+            haptic feedback, and navigation into a placeholder for the next
+            step. Later steps — refining the area, severity, sensation, and a
+            doctor-ready summary — are not built yet.
+          </p>
+        </article>
+        <article>
+          <h3>Accessibility</h3>
+          <p>
+            VoiceOver labels, values, and selection states; a named action to
+            select the region without precise tapping; Dynamic Type up to
+            accessibility sizes; Reduce Motion variants for every animation;
+            44-point minimum targets; state is never communicated by colour
+            alone.
+          </p>
+        </article>
+        <article>
+          <h3>Under the hood</h3>
+          <p>
+            Native SwiftUI, no external dependencies. The figure is a single
+            mirrored Bézier outline rendered with layered light in a Canvas.
+            State logic is covered by Swift Testing unit tests and built in CI.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="disclaimer" aria-labelledby="disclaimer-title">
+      <h2 id="disclaimer-title" class="visually-hidden">Disclaimer</h2>
+      <p>
+        Soma is an early interface prototype. It does not provide diagnoses or
+        medical treatment.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>Soma · Body Check-In prototype v0.1</span>
+    <a href="https://github.com/gorgerich/soma" rel="noopener">Source on GitHub</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
