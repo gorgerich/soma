@@ -1,6 +1,28 @@
 # Implementation Status
 
-_Last updated: 2026-07-18 (web application v0.1)_
+_Last updated: 2026-07-18 (interactive anatomy experience v1)_
+
+## Interactive anatomy (INTERACTIVE_ANATOMY_EXPERIENCE_V1)
+
+- Step 1 rebuilt around six user-supplied luminous anatomy assets
+  (`web-app/public/anatomy/`): full-screen interactive explorer with
+  front/back swipe and buttons, 41 anatomical hotspot polygons (20 front,
+  21 back) in a shared image coordinate space, tap selection with lime-core
+  marker + coral halo + single pulse, focus zoom («Показать крупнее»,
+  double-tap), pinch/pan/wheel zoom with clamping, detail-image crossfades
+  (head/chest/abdomen/legs; lower back uses a deeper crop of body-back),
+  state-driven organic bottom sheet, accessible region list drawer,
+  loading/retry states, dev-only `?debugAnatomy=1` calibration overlay.
+- Episode model widened to all region ids with selection-orientation
+  tracking; legacy lowerBack-only records migrate transparently.
+- Directional step transitions + context chips across the flow; review
+  shows a compact body preview with the marker.
+- Verification: lint/typecheck clean, 33/33 unit tests, production build
+  OK, 25/25 browser checks (mobile flow, gesture fallback, keyboard,
+  persistence migration), 14 screenshots in
+  `docs/screenshots/anatomy-v1/`.
+- Docs: `docs/ANATOMY_ASSET_AUDIT.md`,
+  `docs/ANATOMY_HOTSPOT_CALIBRATION.md`.
 
 ## Web application (WEB_APPLICATION_V0.1)
 
