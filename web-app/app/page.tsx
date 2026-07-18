@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { CheckInFlow } from "@/components/check-in/CheckInFlow";
 import { AppHeader } from "@/components/navigation/AppHeader";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
-import { copy } from "@/features/symptom-check-in/copy.ru";
+import { copy, regionLabel } from "@/features/symptom-check-in/copy.ru";
 import {
   formatDateTime,
   formatSensations,
@@ -68,7 +68,7 @@ function HomeContent() {
         >
           <div className={styles.cardEyebrow}>{copy.home.latestEpisode}</div>
           <div className={styles.cardTitleRow}>
-            <span className={styles.cardRegion}>{copy.region.lowerBack}</span>
+            <span className={styles.cardRegion}>{regionLabel(latest.region)}</span>
             <span className={styles.cardSeverity}>
               {formatSeverity(latest.severity)}
             </span>

@@ -1,14 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useReducer, useRef } from "react";
-import { BodyMap } from "@/components/body/BodyMap";
+import { useEffect, useReducer, useRef, useState } from "react";
+import { AnatomyExplorer } from "@/components/anatomy/AnatomyExplorer";
+import { AnatomyPreview } from "@/components/anatomy/AnatomyPreview";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import {
   CheckboxOptionGroup,
   RadioOptionGroup,
 } from "@/components/ui/OptionGroup";
-import { copy, severityLabel } from "@/features/symptom-check-in/copy.ru";
+import { copy, regionLabel, severityLabel } from "@/features/symptom-check-in/copy.ru";
 import {
   formatOnset,
   formatSensations,
@@ -49,6 +50,7 @@ export function CheckInFlow({ initialEpisode, onSaved, onExit }: Props) {
     initialCheckInState,
     (base) => base,
   );
+  const [isDescribeNotePresented, setDescribeNotePresented] = useState(false);
   const loadedRef = useRef(false);
 
   useEffect(() => {
@@ -59,6 +61,9 @@ export function CheckInFlow({ initialEpisode, onSaved, onExit }: Props) {
   }, [initialEpisode]);
 
   const stepIndex = STEP_ORDER.indexOf(state.step);
+  const stepClass = `${styles.stepBody} ${
+    state.lastNav === "back" ? styles.stepEnterBack : styles.stepEnterForward
+  }`;
 
   function handleSave() {
     const episode = buildEpisode(state);
@@ -105,84 +110,40 @@ export function CheckInFlow({ initialEpisode, onSaved, onExit }: Props) {
             <p className={styles.subtitle}>{copy.region.subtitle}</p>
           </header>
 
-          <div className={styles.bodyScene}>
-            <div className={styles.bodyStage}>
-              <BodyMap
-                side={state.bodySide}
-                isLowerBackSelected={state.region === "lowerBack"}
-                onToggleLowerBack={() =>
-                  dispatch({ type: "TOGGLE_REGION", region: "lowerBack" })
-                }
-              />
-            </div>
+          <div className={styles.anatomyStage} key="anatomy">
+            <AnatomyExplorer
+              orientation={state.bodySide}
+              selectedRegionId={state.region}
+              onOrientationChange={(side) => dispatch({ type: "SET_BODY_SIDE", side })}
+              onToggleRegion={(region) => dispatch({ type: "TOGGLE_REGION", region })}
+              onDescribe={() => setDescribeNotePresented(true)}
+              onContinue={() => dispatch({ type: "GO_NEXT" })}
+            />
+          </div>
 
+          {isDescribeNotePresented ? (
             <div
-              className={`${styles.panel} ${state.region ? styles.panelRaised : ""}`}
+              className={styles.noteBackdrop}
+              role="dialog"
+              aria-modal="true"
+              aria-label={copy.region.describeInstead}
             >
-              <fieldset
-                className={styles.sidePicker}
-                aria-label={copy.region.title}
-                style={{ border: "none" }}
-              >
-                {(["front", "back"] as const).map((side) => (
-                  <label key={side} className={styles.sideOption}>
-                    <input
-                      type="radio"
-                      name="body-side"
-                      checked={state.bodySide === side}
-                      onChange={() => dispatch({ type: "SET_BODY_SIDE", side })}
-                    />
-                    {copy.sides[side]}
-                  </label>
-                ))}
-              </fieldset>
-
-              <div className={styles.selectionRow}>
-                {state.region ? (
-                  <div>
-                    <div className={styles.selectionEyebrow}>
-                      {copy.region.selectedPrefix}
-                    </div>
-                    <div className={styles.selectionTitle}>
-                      {copy.region.lowerBack}
-                    </div>
-                    <div className={styles.selectionHint}>
-                      {copy.region.tapAgainToClear}
-                    </div>
-                  </div>
-                ) : (
-                  <div>
-                    <div className={styles.selectionTitle}>
-                      {copy.region.nothingSelected}
-                    </div>
-                    <div className={styles.selectionHint}>
-                      {copy.region.describeInsteadNote}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {state.bodySide === "back" ? (
+              <div className={styles.noteCard}>
+                <h2>{copy.region.describeInstead}</h2>
+                <p>
+                  Отметьте примерную область на теле, а точные слова можно
+                  добавить на шаге описания ощущений.
+                </p>
                 <button
                   type="button"
                   className={uiStyles.ghost}
-                  onClick={() =>
-                    dispatch({ type: "TOGGLE_REGION", region: "lowerBack" })
-                  }
+                  onClick={() => setDescribeNotePresented(false)}
                 >
-                  {state.region === "lowerBack"
-                    ? copy.region.clearLowerBack
-                    : copy.region.selectLowerBack}
+                  Понятно
                 </button>
-              ) : null}
-
-              <PrimaryButton
-                label={copy.common.next}
-                disabled={!canGoNext(state)}
-                onClick={() => dispatch({ type: "GO_NEXT" })}
-              />
+              </div>
             </div>
-          </div>
+          ) : null}
         </div>
       );
 
@@ -192,8 +153,13 @@ export function CheckInFlow({ initialEpisode, onSaved, onExit }: Props) {
           {topBar}
           <header className={styles.header}>
             <h1 className={styles.title}>{copy.severity.title}</h1>
+            {state.region ? (
+              <p className={styles.contextChip}>
+                {regionLabel(state.region)}
+              </p>
+            ) : null}
           </header>
-          <div className={styles.stepBody}>
+          <div className={stepClass} key="severity">
             <div className={styles.severityValue}>
               <span className={styles.severityNumber}>{state.severity}</span>
               <span className={styles.severityWord}>
@@ -254,10 +220,7 @@ export function CheckInFlow({ initialEpisode, onSaved, onExit }: Props) {
             />
 
             <div className={styles.textareaWrap}>
-              <label
-                className={uiStyles.optionGroupTitle}
-                htmlFor="free-text"
-              >
+              <label className={uiStyles.optionGroupTitle} htmlFor="free-text">
                 {copy.severity.freeTextLabel}
               </label>
               <textarea
@@ -291,8 +254,13 @@ export function CheckInFlow({ initialEpisode, onSaved, onExit }: Props) {
           {topBar}
           <header className={styles.header}>
             <h1 className={styles.title}>{copy.timing.title}</h1>
+            {state.region ? (
+              <p className={styles.contextChip}>
+                {regionLabel(state.region)} · {formatSeverity(state.severity)}
+              </p>
+            ) : null}
           </header>
-          <div className={styles.stepBody}>
+          <div className={stepClass} key="timing">
             <RadioOptionGroup
               legend={copy.timing.title}
               name="onset-preset"
@@ -378,7 +346,11 @@ export function CheckInFlow({ initialEpisode, onSaved, onExit }: Props) {
         step: "region" | "severity" | "timing";
       }> = draft
         ? [
-            { label: copy.review.region, value: copy.region.lowerBack, step: "region" },
+            {
+              label: copy.review.region,
+              value: regionLabel(draft.region),
+              step: "region",
+            },
             {
               label: copy.review.bodySide,
               value:
@@ -431,14 +403,14 @@ export function CheckInFlow({ initialEpisode, onSaved, onExit }: Props) {
           <header className={styles.header}>
             <h1 className={styles.title}>{copy.review.title}</h1>
           </header>
-          <div className={styles.stepBody}>
+          <div className={stepClass} key="review">
             <div className={styles.reviewLayout}>
-              <BodyMap
-                side={state.bodySide}
-                isLowerBackSelected={state.region === "lowerBack"}
-                onToggleLowerBack={() => {}}
-                compact
-              />
+              {draft ? (
+                <AnatomyPreview
+                  orientation={draft.bodySide}
+                  regionId={draft.region}
+                />
+              ) : null}
               <div className={styles.reviewList}>
                 {rows.map((row) => (
                   <div key={`${row.label}-${row.value}`} className={styles.reviewItem}>
@@ -480,7 +452,7 @@ export function CheckInFlow({ initialEpisode, onSaved, onExit }: Props) {
       return (
         <div className={styles.flow}>
           {topBar}
-          <div className={`${styles.stepBody} ${styles.centered}`}>
+          <div className={`${stepClass} ${styles.centered}`} key="saved">
             <div className={styles.savedMark} aria-hidden="true">
               <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
                 <path
