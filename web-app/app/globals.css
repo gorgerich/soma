@@ -1,0 +1,112 @@
+/* Soma design tokens — pearl / rose / coral / lavender / plum. */
+
+:root {
+  --pearl: #f8f3f0;
+  --panel: #ffffff;
+  --hairline: #e8ddd9;
+  --ink: #2e2530;
+  --ink-secondary: #847786;
+  --plum: #4a2e4d;
+  --plum-pressed: #3a2340;
+  --coral: #e39380;
+  --lavender: #a795c9;
+  --rose-field: #f3d3cd;
+  --coral-field: #edb4a4;
+  --lavender-field: #dcd3ec;
+  --body-ivory: #fbf2ec;
+  --body-rose: #edd2cc;
+  --body-shade: #d8b4ae;
+  --body-contour: #8a5f63;
+
+  --serif: "New York", ui-serif, Georgia, "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+
+  --radius-control: 999px;
+  --tap-target: 44px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--pearl);
+  line-height: 1.5;
+  min-height: 100dvh;
+}
+
+/* Ambient atmosphere behind the whole app. */
+.app-shell {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background:
+    radial-gradient(42rem 30rem at 62% 6%, rgba(243, 211, 205, 0.9), transparent 65%),
+    radial-gradient(32rem 26rem at 30% 42%, rgba(237, 180, 164, 0.35), transparent 65%),
+    radial-gradient(38rem 30rem at 72% 92%, rgba(220, 211, 236, 0.75), transparent 65%),
+    var(--pearl);
+}
+
+.app-canvas {
+  width: 100%;
+  max-width: 480px;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+a {
+  color: var(--plum);
+}
+
+:focus-visible {
+  outline: 2px solid var(--plum);
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

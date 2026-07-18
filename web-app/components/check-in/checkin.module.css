@@ -1,0 +1,313 @@
+.flow {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem 0;
+  min-height: 48px;
+}
+
+.stepMeta {
+  color: var(--ink-secondary);
+  font-size: 0.85rem;
+}
+
+.header {
+  padding: 0.4rem 1.25rem 0.6rem;
+}
+
+.title {
+  font-size: clamp(1.7rem, 6.5vw, 2.1rem);
+  margin-bottom: 0.35rem;
+}
+
+.subtitle {
+  color: var(--ink-secondary);
+  font-size: 0.95rem;
+}
+
+.stepBody {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  padding: 0.6rem 1.25rem 1rem;
+  animation: step-in 0.3s ease;
+}
+
+@keyframes step-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Step 1 — body scene */
+.bodyScene {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 0;
+  animation: step-in 0.3s ease;
+}
+
+.bodyStage {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0.25rem 1.25rem 0;
+  margin-bottom: -2.2rem;
+}
+
+/* Organic lower panel — asymmetric crest, lifts when a region is chosen. */
+.panel {
+  position: relative;
+  background: var(--panel);
+  border-radius: 3.4rem 1.4rem 0 0;
+  box-shadow: 0 -18px 40px -24px rgba(46, 37, 48, 0.35);
+  padding: 3.2rem 1.4rem calc(1.1rem + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  transition: transform 0.35s ease;
+}
+
+.panelRaised {
+  transform: translateY(-6px);
+}
+
+.sidePicker {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: var(--radius-control);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 10px 26px -14px rgba(46, 37, 48, 0.4);
+  backdrop-filter: blur(8px);
+}
+
+.sideOption {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 96px;
+  min-height: var(--tap-target);
+  padding: 0 1rem;
+  border-radius: var(--radius-control);
+  color: var(--ink-secondary);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.sideOption input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.sideOption:has(input:checked) {
+  background: var(--plum);
+  color: #fff;
+}
+
+.sideOption:has(input:focus-visible) {
+  outline: 2px solid var(--plum);
+  outline-offset: 2px;
+}
+
+.selectionRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 3.4rem;
+}
+
+.selectionEyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--coral);
+}
+
+.selectionTitle {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.selectionHint {
+  color: var(--ink-secondary);
+  font-size: 0.85rem;
+}
+
+/* Severity */
+.severityValue {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.severityNumber {
+  font-family: var(--serif);
+  font-size: 2.6rem;
+  font-weight: 600;
+  min-width: 2ch;
+}
+
+.severityWord {
+  color: var(--ink-secondary);
+  font-size: 1.05rem;
+}
+
+.sliderRow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.stepperButton {
+  width: var(--tap-target);
+  height: var(--tap-target);
+  border-radius: 50%;
+  border: 1px solid rgba(74, 46, 77, 0.25);
+  background: rgba(255, 255, 255, 0.7);
+  font-size: 1.3rem;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+
+.slider {
+  flex: 1;
+  accent-color: var(--plum);
+  height: var(--tap-target);
+}
+
+.textareaWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.textarea {
+  font: inherit;
+  min-height: 96px;
+  padding: 0.75rem 0.9rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(74, 46, 77, 0.2);
+  background: rgba(255, 255, 255, 0.8);
+  resize: vertical;
+}
+
+.charCount {
+  color: var(--ink-secondary);
+  font-size: 0.8rem;
+  align-self: flex-end;
+}
+
+.dateInput {
+  font: inherit;
+  min-height: var(--tap-target);
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(74, 46, 77, 0.2);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+/* Review */
+.reviewLayout {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.reviewList {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.reviewItem {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+  border-bottom: 1px solid rgba(74, 46, 77, 0.08);
+  padding-bottom: 0.5rem;
+}
+
+.reviewLabel {
+  color: var(--ink-secondary);
+  font-size: 0.82rem;
+}
+
+.reviewValue {
+  font-size: 0.98rem;
+}
+
+.reviewEdit {
+  color: var(--plum);
+  font-size: 0.85rem;
+  font-weight: 600;
+  min-height: 32px;
+  flex: none;
+}
+
+.disclaimer {
+  color: var(--ink-secondary);
+  font-size: 0.88rem;
+  text-align: center;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-bottom: 0.4rem;
+}
+
+.centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.9rem;
+  padding-top: 2.5rem;
+}
+
+.savedMark {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(227, 147, 128, 0.18);
+  color: var(--plum);
+}

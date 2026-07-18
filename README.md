@@ -9,6 +9,15 @@ before speaking to a healthcare professional.
 Soma is *not* a diagnostic application. It does not scan the body, identify
 diseases, determine a diagnosis, or provide medical treatment.
 
+This repository contains two implementations:
+
+1. **Native SwiftUI iOS app** (`Soma/`, `Soma.xcodeproj`) — the Body Check-In
+   visual prototype.
+2. **Functional Next.js web application** (`web-app/`) — the Russian-language
+   Soma symptom journal, deployed to Vercel at
+   https://soma-showcase.vercel.app. This is the real interactive app (five-step
+   flow, history, settings, local-only storage), not a showcase page.
+
 ## This iteration
 
 The first step of the flow — the **Body Check-In** screen ("Where does it
@@ -103,11 +112,20 @@ SomaTests/                    # Swift Testing unit tests for state logic
 - The body silhouette is an abstract shape composition, not final artwork.
 - No persistence — state is in-memory only.
 
+## Web application
+
+`web-app/` — Russian-language Soma symptom journal (Next.js App Router,
+strict TypeScript, CSS Modules, no backend, data stays in the browser).
+See [web-app/README.md](web-app/README.md) and
+[docs/WEB_APP_V0.1.md](docs/WEB_APP_V0.1.md). Production:
+https://soma-showcase.vercel.app
+
 ## Release & CI
 
-- Release notes: `docs/RELEASE_V0.1.md` (tag `v0.1.0-body-check-in`).
+- Release notes: `docs/RELEASE_V0.1.md` (tag `v0.1.0-body-check-in`),
+  `docs/WEB_APP_V0.1.md` (web application v0.1).
 - CI: `.github/workflows/ios-ci.yml` builds and tests on an iPhone 16 Pro
-  simulator (macOS 15 runner, Xcode 16.2, no code signing).
+  simulator (macOS 15 runner, no code signing).
 
 ## Next recommended step
 

@@ -1,0 +1,118 @@
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1.25rem;
+}
+
+.header {
+  padding: 0.6rem 1.25rem 1rem;
+}
+
+.title {
+  font-size: clamp(1.7rem, 6.5vw, 2.1rem);
+}
+
+.empty {
+  padding: 2rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  color: var(--ink-secondary);
+}
+
+.emptyCta {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-target);
+  padding: 0 1.2rem;
+  border-radius: var(--radius-control);
+  background: var(--plum);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0 1.25rem;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.itemHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.itemRegion {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.itemSeverity {
+  color: var(--ink-secondary);
+  font-size: 0.88rem;
+  text-align: right;
+}
+
+.itemMeta {
+  color: var(--ink-secondary);
+  font-size: 0.88rem;
+}
+
+.detailList {
+  margin-top: 0.4rem;
+  border-top: 1px solid rgba(74, 46, 77, 0.1);
+  padding-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  font-size: 0.9rem;
+}
+
+.detailRow dt {
+  color: var(--ink-secondary);
+  flex: none;
+}
+
+.detailRow dd {
+  text-align: right;
+}
+
+.itemActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-top: 0.4rem;
+}
+
+.itemAction {
+  min-height: 40px;
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius-control);
+  color: var(--plum);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.itemActionDanger {
+  color: #a03d2e;
+}

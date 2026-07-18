@@ -1,6 +1,23 @@
 # Implementation Status
 
-_Last updated: 2026-07-17 (release gate v0.1.0)_
+_Last updated: 2026-07-18 (web application v0.1)_
+
+## Web application (WEB_APPLICATION_V0.1)
+
+- The production Vercel domain https://soma-showcase.vercel.app now serves
+  the **interactive Russian web application** (`web-app/`, Next.js 16.2.10);
+  the static screenshot showcase (`web-preview/`) was removed from the
+  repository and production.
+- Full five-step flow (body → severity/sensations → timing/dynamics →
+  review with per-row edit → saved), home state, `/history` (open / edit /
+  duplicate / delete with confirmation), `/settings` (city, JSON export,
+  delete-all, `tel:112`, about), local-only versioned storage with
+  validation, PWA manifest.
+- Verification: lint / typecheck clean, 18/18 vitest tests, production
+  build OK, 22/22 browser-flow checks locally **and** on production;
+  10 live-UI screenshots in `docs/screenshots/web-app/`.
+- Details: `docs/WEB_APP_V0.1.md`. Not clinically validated; no diagnosis
+  or triage anywhere.
 
 ## Release
 
