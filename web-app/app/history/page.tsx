@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { AppHeader } from "@/components/navigation/AppHeader";
-import { copy } from "@/features/symptom-check-in/copy.ru";
+import { copy, regionLabel } from "@/features/symptom-check-in/copy.ru";
 import {
   formatDateTime,
   formatSensations,
@@ -68,7 +68,7 @@ export default function HistoryPage() {
                 <li key={episode.id} className={`${uiStyles.card} ${styles.item}`}>
                   <div className={styles.itemHead}>
                     <div>
-                      <div className={styles.itemRegion}>{copy.region.lowerBack}</div>
+                      <div className={styles.itemRegion}>{regionLabel(episode.region)}</div>
                       <div className={styles.itemMeta}>
                         {formatDateTime(episode.updatedAt)}
                       </div>

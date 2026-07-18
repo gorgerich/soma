@@ -1,4 +1,5 @@
 import type {
+  BodyRegionId,
   BodySide,
   FrequencyPattern,
   OnsetPattern,
@@ -23,20 +24,68 @@ export const copy = {
 
   region: {
     title: "Где болит?",
-    subtitle: "Нажмите на область, которая вас беспокоит.",
+    subtitle: "Нажмите на область тела или приблизьте изображение.",
     selectedPrefix: "Выбранная область",
     lowerBack: "Поясница",
-    selectedState: "Выбранная область — поясница",
-    nothingSelected: "Область пока не выбрана",
+    nothingSelected: "Выберите область",
+    nothingSelectedHint: "Нажмите на тело или выберите из списка",
     tapAgainToClear: "Нажмите ещё раз, чтобы убрать выбор",
-    selectLowerBack: "Выбрать поясницу",
-    clearLowerBack: "Убрать выбор поясницы",
     describeInstead: "Описать словами",
-    describeInsteadNote:
-      "Пока можно отметить только поясницу. Если беспокоит другое место, опишите его словами на следующих шагах.",
-    bodyLabelBack: "Тело, вид сзади",
-    bodyLabelFront: "Тело, вид спереди",
+    bodyLabelBack: "Модель тела, вид сзади",
+    bodyLabelFront: "Модель тела, вид спереди",
   },
+
+  anatomy: {
+    zoomIn: "Приблизить",
+    zoomOut: "Отдалить",
+    resetZoom: "Вернуть исходный масштаб",
+    showCloser: "Показать крупнее",
+    backToBody: "Вернуться к телу",
+    backToOverview: "К общему виду",
+    changeRegion: "Изменить область",
+    refineHint: "Можно уточнить точку",
+    regionListOpen: "Выбрать область из списка",
+    regionListTitle: "Области тела",
+    loading: "Загружаем модель тела…",
+    loadFailed: "Не удалось загрузить изображение",
+    retry: "Попробовать ещё раз",
+    otherSideNote: "Выбранная область находится на другой стороне тела.",
+    zoomLevel: (percent: number) => `Масштаб ${percent} процентов`,
+    regionNotSelected: (label: string) => `${label}, область тела, не выбрана`,
+    regionSelected: (label: string) => `${label}, выбрана`,
+  },
+
+  regionLabels: {
+    head: "Голова",
+    throat: "Горло",
+    chest: "Грудная клетка",
+    upperAbdomen: "Верх живота",
+    lowerAbdomen: "Низ живота",
+    pelvis: "Таз",
+    backOfHead: "Затылок",
+    neck: "Шея",
+    upperBack: "Верх спины",
+    middleBack: "Середина спины",
+    lowerBack: "Поясница",
+    leftGlute: "Левая ягодица",
+    rightGlute: "Правая ягодица",
+    leftShoulder: "Левое плечо",
+    rightShoulder: "Правое плечо",
+    leftArm: "Левая рука",
+    rightArm: "Правая рука",
+    leftHand: "Левая кисть",
+    rightHand: "Правая кисть",
+    leftThigh: "Левое бедро",
+    rightThigh: "Правое бедро",
+    leftKnee: "Левое колено",
+    rightKnee: "Правое колено",
+    leftShin: "Левая голень",
+    rightShin: "Правая голень",
+    leftCalf: "Левая икра",
+    rightCalf: "Правая икра",
+    leftFoot: "Левая стопа",
+    rightFoot: "Правая стопа",
+  } satisfies Record<BodyRegionId, string>,
 
   sides: {
     front: "Спереди",
@@ -191,6 +240,11 @@ export const copy = {
     stepOf: (n: number, total: number) => `Шаг ${n} из ${total}`,
   },
 } as const;
+
+/** Russian display label for a body region id. */
+export function regionLabel(id: keyof typeof copy.regionLabels): string {
+  return copy.regionLabels[id];
+}
 
 /** Plain-language label for a 0–10 severity value. */
 export function severityLabel(value: number): string {

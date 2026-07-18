@@ -53,6 +53,88 @@
   }
 }
 
+@keyframes step-in-forward {
+  from {
+    opacity: 0;
+    transform: translateX(26px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes step-in-back {
+  from {
+    opacity: 0;
+    transform: translateX(-26px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.stepEnterForward {
+  animation: step-in-forward 0.32s cubic-bezier(0.22, 0.8, 0.3, 1);
+}
+
+.stepEnterBack {
+  animation: step-in-back 0.32s cubic-bezier(0.22, 0.8, 0.3, 1);
+}
+
+/* Interactive anatomy stage fills the remaining screen. */
+.anatomyStage {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  margin-top: 0.4rem;
+  border-radius: 1.6rem 1.6rem 0 0;
+  overflow: hidden;
+  animation: step-in 0.35s ease;
+}
+
+.contextChip {
+  display: inline-block;
+  margin-top: 0.35rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(74, 46, 77, 0.08);
+  color: var(--plum);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.noteBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  background: rgba(46, 20, 40, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.noteCard {
+  background: var(--panel);
+  border-radius: 1.4rem;
+  padding: 1.3rem 1.4rem;
+  max-width: 22rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.noteCard h2 {
+  font-size: 1.15rem;
+}
+
+.noteCard p {
+  color: var(--ink-secondary);
+  font-size: 0.94rem;
+}
+
 /* Step 1 — body scene */
 .bodyScene {
   flex: 1;

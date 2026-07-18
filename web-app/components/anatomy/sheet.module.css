@@ -1,0 +1,70 @@
+.sheet {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 6;
+  background: var(--panel);
+  border-radius: 2.6rem 1.2rem 0 0;
+  box-shadow: 0 -18px 44px -22px rgba(60, 25, 45, 0.5);
+  padding: 1.1rem 1.3rem calc(0.9rem + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: transform 0.35s ease;
+}
+
+.sheetRaised {
+  transform: translateY(-4px);
+}
+
+.summary {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.8rem;
+  min-height: 3.2rem;
+}
+
+.eyebrow {
+  letter-spacing: 0.12em;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--coral);
+}
+
+.title {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.hint {
+  color: var(--ink-secondary);
+  font-size: 0.84rem;
+}
+
+.sideActions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.1rem;
+  flex: none;
+}
+
+.ghost {
+  min-height: 40px;
+  padding: 0.25rem 0.5rem;
+  color: var(--plum);
+  font-weight: 600;
+  font-size: 0.88rem;
+  border-radius: 10px;
+  text-align: right;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheet {
+    transition: none;
+  }
+}

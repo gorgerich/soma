@@ -24,10 +24,14 @@ export type CheckInState = {
   step: CheckInStep;
   /** When editing a single step from the review screen, Next returns there. */
   returnToReview: boolean;
+  /** Direction of the latest step change, for directional transitions. */
+  lastNav: "forward" | "back";
   /** Episode id when the flow edits an existing record. */
   editingEpisodeId: string | null;
   bodySide: BodySide;
   region: BodyRegionId | null;
+  /** Orientation the region was selected on (regions live on a side). */
+  selectionSide: BodySide | null;
   severity: number;
   sensations: SensationType[];
   freeText: string;
@@ -62,9 +66,11 @@ export type CheckInAction =
 export const initialCheckInState: CheckInState = {
   step: "region",
   returnToReview: false,
+  lastNav: "forward",
   editingEpisodeId: null,
   bodySide: "back",
   region: null,
+  selectionSide: null,
   severity: 5,
   sensations: [],
   freeText: "",
@@ -119,7 +125,7 @@ export function buildEpisode(
     createdAt: timestamp,
     updatedAt: timestamp,
     region: state.region,
-    bodySide: state.bodySide,
+    bodySide: state.selectionSide ?? state.bodySide,
     severity: state.severity,
     sensations: [...state.sensations],
     ...(freeText.length > 0 ? { freeText } : {}),
@@ -150,16 +156,19 @@ export function checkInReducer(
       return { ...state, bodySide: action.side };
 
     case "SELECT_REGION":
-      return { ...state, region: action.region };
+      return { ...state, region: action.region, selectionSide: state.bodySide };
 
     case "CLEAR_REGION":
-      return { ...state, region: null };
+      return { ...state, region: null, selectionSide: null };
 
-    case "TOGGLE_REGION":
+    case "TOGGLE_REGION": {
+      const deselect = state.region === action.region;
       return {
         ...state,
-        region: state.region === action.region ? null : action.region,
+        region: deselect ? null : action.region,
+        selectionSide: deselect ? null : state.bodySide,
       };
+    }
 
     case "SET_SEVERITY": {
       const value = Math.min(MAX_SEVERITY, Math.max(0, Math.round(action.value)));
@@ -202,24 +211,24 @@ export function checkInReducer(
     case "GO_NEXT": {
       if (!canGoNext(state)) return state;
       if (state.returnToReview) {
-        return { ...state, step: "review", returnToReview: false };
+        return { ...state, step: "review", returnToReview: false, lastNav: "forward" };
       }
       const index = STEP_ORDER.indexOf(state.step);
       const next = STEP_ORDER[index + 1];
-      return next ? { ...state, step: next } : state;
+      return next ? { ...state, step: next, lastNav: "forward" } : state;
     }
 
     case "GO_BACK": {
       if (state.returnToReview) {
-        return { ...state, step: "review", returnToReview: false };
+        return { ...state, step: "review", returnToReview: false, lastNav: "back" };
       }
       const index = STEP_ORDER.indexOf(state.step);
       if (index <= 0) return state;
-      return { ...state, step: STEP_ORDER[index - 1] };
+      return { ...state, step: STEP_ORDER[index - 1], lastNav: "back" };
     }
 
     case "EDIT_STEP":
-      return { ...state, step: action.step, returnToReview: true };
+      return { ...state, step: action.step, returnToReview: true, lastNav: "back" };
 
     case "RESET":
       return { ...initialCheckInState };
@@ -231,6 +240,7 @@ export function checkInReducer(
         editingEpisodeId: e.id,
         bodySide: e.bodySide,
         region: e.region,
+        selectionSide: e.bodySide,
         severity: e.severity,
         sensations: [...e.sensations],
         freeText: e.freeText ?? "",
@@ -244,6 +254,6 @@ export function checkInReducer(
     }
 
     case "MARK_SAVED":
-      return { ...state, step: "saved", savedEpisode: action.episode };
+      return { ...state, step: "saved", savedEpisode: action.episode, lastNav: "forward" };
   }
 }

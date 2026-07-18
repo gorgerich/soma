@@ -4,9 +4,11 @@
  * labels from `copy.ru.ts`.
  */
 
+import type { AnatomyRegionId } from "../anatomy/anatomy-types";
+
 export type BodySide = "front" | "back";
 
-export type BodyRegionId = "lowerBack";
+export type BodyRegionId = AnatomyRegionId;
 
 export type SensationType =
   | "sharp"

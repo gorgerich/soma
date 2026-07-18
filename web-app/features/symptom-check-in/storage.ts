@@ -1,9 +1,11 @@
+import { ALL_REGION_IDS } from "../anatomy/anatomy-regions";
 import {
   FREQUENCY_PATTERNS,
   MAX_SEVERITY,
   ONSET_PATTERNS,
   ONSET_PRESETS,
   SENSATIONS,
+  type BodyRegionId,
   type CityId,
   type SensationType,
   type Settings,
@@ -26,7 +28,9 @@ export function parseEpisode(value: unknown): SymptomEpisode | null {
   if (typeof value.id !== "string" || value.id.length === 0) return null;
   if (typeof value.createdAt !== "string" || Number.isNaN(Date.parse(value.createdAt))) return null;
   if (typeof value.updatedAt !== "string" || Number.isNaN(Date.parse(value.updatedAt))) return null;
-  if (value.region !== "lowerBack") return null;
+  // v1 records stored only "lowerBack"; the same key now accepts every
+  // anatomy region id, so old records keep loading unchanged.
+  if (!(ALL_REGION_IDS as string[]).includes(value.region as string)) return null;
   if (value.bodySide !== "front" && value.bodySide !== "back") return null;
   if (
     typeof value.severity !== "number" ||
@@ -51,7 +55,7 @@ export function parseEpisode(value: unknown): SymptomEpisode | null {
     schemaVersion: 1,
     createdAt: value.createdAt,
     updatedAt: value.updatedAt,
-    region: "lowerBack",
+    region: value.region as BodyRegionId,
     bodySide: value.bodySide,
     severity: Math.round(value.severity),
     sensations,
