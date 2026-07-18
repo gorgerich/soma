@@ -29,7 +29,7 @@ describe("stored data validation", () => {
   it("rejects wrong schema versions and malformed entries", () => {
     expect(parseEpisode({ ...validEpisode, schemaVersion: 2 })).toBeNull();
     expect(parseEpisode({ ...validEpisode, severity: 99 })).toBeNull();
-    expect(parseEpisode({ ...validEpisode, region: "head" })).toBeNull();
+    expect(parseEpisode({ ...validEpisode, region: "unknown-region" })).toBeNull();
     expect(parseEpisode(null)).toBeNull();
     expect(parseEpisode("string")).toBeNull();
   });
