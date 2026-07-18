@@ -33,7 +33,11 @@ page.on("console", (m) => {
   if (m.type() === "error") consoleErrors.push(m.text());
 });
 const failedRequests = [];
-page.on("requestfailed", (r) => failedRequests.push(r.url()));
+page.on("requestfailed", (r) => {
+  // Navigation cancels in-flight prefetches; aborts are not real failures.
+  if (r.failure()?.errorText === "net::ERR_ABORTED") return;
+  failedRequests.push(r.url());
+});
 
 const shot = (name, target = page) =>
   target.screenshot({ path: `${OUT}/${name}.png` });
